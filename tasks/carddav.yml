@@ -1,0 +1,10 @@
+---
+
+- name: install rcmcarddav with composer
+  composer:
+    command: require
+    arguments: roundcube/carddav dev-master
+    working_dir: "{{ roundcube_path }}"
+  become_user: "{{ roundcube_user }}"
+  when: not ansible_check_mode
+
