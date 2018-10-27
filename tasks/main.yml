@@ -135,6 +135,14 @@
     mode: 0644
   when: roundcube_custom_logo is defined
 
+- name: Set custom header
+  template:
+    src: header.html.j2
+    dest: "{{ roundcube_path }}/skins/larry/includes/header.html"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0644
+
 - name: set custom link for click on logo
   replace:
     path: "{{ roundcube_path }}/skins/{{ item }}/includes/header.html"
