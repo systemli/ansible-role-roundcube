@@ -165,7 +165,7 @@ $config['plugins'] = array(
 
 // the default locale setting (leave empty for auto-detection)
 // RFC1766 formatted language name like en_US, de_DE, de_CH, fr_FR, pt_BR
-$rcmail_config['language'] = '{{ roundcube_language }}';
+$rcmail_config['language'] = '{{ roundcube_language | default('') }}';
 
 // use this format for date display (date or strftime format)
 $config['date_format'] = '{{ roundcube_date_format }}';

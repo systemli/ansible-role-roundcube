@@ -17,7 +17,6 @@ roundcube_smtp_port: 25
 roundcube_smtp_user: '%u'
 roundcube_smtp_pass: '%p'
 roundcube_identities_level: 1
-roundcube_language: de_DE
 roundcube_date_format: d.m.Y
 roundcube_cipher_method: AES-256-CBC
 roundcube_password_charset: UTF-8
