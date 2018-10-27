@@ -135,10 +135,23 @@
     mode: 0644
   when: roundcube_custom_logo is defined
 
+- name: set custom link for click on logo
+  replace:
+    path: "{{ roundcube_path }}/skins/{{ item }}/includes/header.html"
+    regexp: '(.*)name="logo"(.*)onclick="(.*?)"(.*)'
+    replace: "\\1name=\"logo\"\\2onclick=\"location.href='{{ roundcube_logo_url }}'\"\\4"
+  with_items:
+    - classic
+    - larry
+  when: roundcube_logo_url is defined
+
 - name: ensure installed release archive is absent
   file:
-    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
+    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}{{ item }}"
     state: absent
+  with_items:
+    - '-complete.tar.gz'
+    - ''
 
 - import_tasks: getmail.yml
   tags:
