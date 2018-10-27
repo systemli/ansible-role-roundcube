@@ -12,7 +12,7 @@ Also, you need to configure the webserver to to deliver vhost `{{ roundcube_doma
 
 ```
 roundcube_repo: https://github.com/roundcube/roundcubemail
-roundcube_version: "1.3.7"
+roundcube_version: "1.3.8"
 roundcube_domain: mail.systemli.org
 roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
@@ -30,7 +30,6 @@ roundcube_smtp_port: 25
 roundcube_smtp_user: '%u'
 roundcube_smtp_pass: '%p'
 roundcube_identities_level: 1
-roundcube_language: de_DE
 roundcube_date_format: d.m.Y
 roundcube_cipher_method: AES-256-CBC
 roundcube_password_charset: UTF-8
