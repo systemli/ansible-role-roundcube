@@ -1,0 +1,9 @@
+{
+  "name": "larry-custom",
+  "author": "systemli",
+  "url": "www.systemli.org",
+  "license": "GPLv3",
+  "localization": false,
+  "config": [],
+  "extends": "larry"
+}

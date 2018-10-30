@@ -97,6 +97,7 @@ $config['dont_override'] = array('skin');
 // provide an URL where a user can get support for this Roundcube installation
 // PLEASE DO NOT LINK TO THE ROUNDCUBE.NET WEBSITE HERE!
 $config['support_url'] = '{{ roundcube_support_url }}';
+$config['account_url'] = '{{ roundcube_account_url | d('') }}';
 
 // replace Roundcube logo with this image
 // specify an URL relative to the document root of this Roundcube installation
@@ -175,7 +176,7 @@ $config['date_format'] = '{{ roundcube_date_format }}';
 // ----------------------------------
 
 // skin name: folder from skins/
-$config['skin'] = 'larry';
+$config['skin'] = '{{ roundcube_skin }}';
 
 // save compose message every x seconds
 $config['draft_autosave'] = {{ roundcube_draft_autosave }};

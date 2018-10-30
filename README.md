@@ -25,6 +25,7 @@ roundcube_mysql_user: roundcube
 roundcube_mysql_password: "{{ roundcube_mysql_password_enc }}"
 roundcube_mysql_db: roundcubemail
 roundcube_default_host: localhost
+roundcube_skin: larry
 roundcube_smtp_server: 'tls://{{ roundcube_domain }}'
 roundcube_smtp_port: 25
 roundcube_smtp_user: '%u'

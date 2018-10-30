@@ -84,22 +84,11 @@
   tags:
     - sieve
     - carddav
+    - skin
 
 - name: run roundcube upgrade script
   command: "{{ roundcube_path }}/bin/update.sh -v {{ version.stdout }}"
   when: (version.stdout != roundcube_version) and (version.stdout != '')
-
-- name: copy custom favicon
-  copy:
-    src: "{{ roundcube_custom_favicon_path }}"
-    dest: "{{ roundcube_path }}/skins/{{ item }}/images/favicon.ico"
-    owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
-    mode: 0644
-  with_items:
-    - classic
-    - larry
-  when: roundcube_custom_favicon_path|d()
 
 - name: create Roundcube cleandb cronjob
   cron:
@@ -118,41 +107,6 @@
     job: "{{ roundcube_path }}/bin/gc.sh >/dev/null"
     cron_file: roundcube
 
-- name: Create custom image directory
-  file:
-    path: "{{ roundcube_path }}/images"
-    owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
-    mode: 0755
-    state: directory
-
-- name: Copy custom logo to image directory
-  copy:
-    src: "{{ roundcube_custom_logo }}"
-    dest: "{{ roundcube_path }}/images/{{ roundcube_custom_logo }}"
-    owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
-    mode: 0644
-  when: roundcube_custom_logo is defined
-
-- name: Set custom header
-  template:
-    src: header.html.j2
-    dest: "{{ roundcube_path }}/skins/larry/includes/header.html"
-    owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
-    mode: 0644
-
-- name: set custom link for click on logo
-  replace:
-    path: "{{ roundcube_path }}/skins/{{ item }}/includes/header.html"
-    regexp: '(.*)name="logo"(.*)onclick="(.*?)"(.*)'
-    replace: "\\1name=\"logo\"\\2onclick=\"location.href='{{ roundcube_logo_url }}'\"\\4"
-  with_items:
-    - classic
-    - larry
-  when: roundcube_logo_url is defined
-
 - name: ensure installed release archive is absent
   file:
     path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}{{ item }}"
@@ -160,6 +114,10 @@
   with_items:
     - '-complete.tar.gz'
     - ''
+
+- import_tasks: skin.yml
+  tags:
+    - skin
 
 - import_tasks: getmail.yml
   tags:

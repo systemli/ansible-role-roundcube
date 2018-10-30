@@ -1,0 +1,39 @@
+---
+
+- name: create custom skin dir 
+  block:
+  - synchronize:
+      src: larry-custom
+      dest:  "{{ roundcube_path }}/skins/"
+
+  - file:
+      path:  "{{ roundcube_path }}/skins/larry-custom/"
+      owner: "{{ roundcube_user }}"
+      group: "{{ roundcube_user }}"
+      recurse: true
+  when: roundcube_skin == 'larry-custom'
+
+- name: Copy custom logo to image directory
+  copy:
+    src: "{{ roundcube_custom_logo }}"
+    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0644
+  when: roundcube_custom_logo is defined
+
+- name: set custom link for click on logo
+  replace:
+    path: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/includes/header.html"
+    regexp: '(.*)name="logo"(.*)onclick="(.*?)"(.*)'
+    replace: "\\1name=\"logo\"\\2onclick=\"location.href='{{ roundcube_logo_url }}'\"\\4"
+  when: roundcube_logo_url is defined
+
+- name: copy custom favicon
+  copy:
+    src: "{{ roundcube_custom_favicon_path }}"
+    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/favicon.ico"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0644
+  when: roundcube_custom_favicon_path|d()
