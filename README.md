@@ -2,6 +2,7 @@
 
 Install and configure Roundcube.
 This includes configuration of the Roundcube Getmail Plugin.
+You can choose a custom skin `larry-custom` that has additional links to accout settings.
 
 ## Dependencies
 
