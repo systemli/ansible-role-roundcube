@@ -5,6 +5,7 @@
   - synchronize:
       src: larry-custom
       dest:  "{{ roundcube_path }}/skins/"
+      archive: false
 
   - file:
       path:  "{{ roundcube_path }}/skins/larry-custom/"
