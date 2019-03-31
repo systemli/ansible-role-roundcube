@@ -14,7 +14,15 @@
       recurse: true
   when: roundcube_skin == 'larry-custom'
 
-- name: Copy custom logo to image directory
+- name: ensure skin image dir is present
+  file:
+    path: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0755
+    state: directory
+
+- name: copy custom logo to image directory
   copy:
     src: "{{ roundcube_custom_logo }}"
     dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
