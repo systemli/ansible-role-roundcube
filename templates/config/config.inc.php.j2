@@ -105,7 +105,7 @@ $config['logo_url'] = '{{ roundcube_logo_url | d('') }}';
 // an array can be used to specify different logos for specific template files, '*' for default logo
 // for example array("*" => "/images/roundcube_logo.png", "messageprint" => "/images/roundcube_logo_print.png")
 {% if roundcube_custom_logo is defined %}
-$config['skin_logo'] = 'https://{{ roundcube_domain }}/images/{{ roundcube_custom_logo }}';
+$config['skin_logo'] = 'https://{{ roundcube_domain }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}';
 {% endif %}
 
 // Allow browser-autocompletion on login form.
