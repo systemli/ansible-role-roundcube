@@ -30,7 +30,6 @@ roundcube_plugins:
 # - carddav
  - enigma
  - getmail
- - legacy_browser
  - managesieve
  - zipdownload
 
