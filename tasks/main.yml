@@ -26,10 +26,9 @@
 
 - name: install Roundcube dependencies
   apt:
-    pkg: "{{ item }}"
+    pkg: "{{ roundcube_dependencies }}"
     state: present
     install_recommends: False
-  with_items: "{{ roundcube_dependencies }}"
 
 - name: register version
   shell: "grep -m1 {{ roundcube_version }} {{ roundcube_path }}/CHANGELOG | sed 's/RELEASE //'"
