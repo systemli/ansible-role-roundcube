@@ -1,10 +1,23 @@
 ---
 
-- name: install rcmcarddav with composer
-  composer:
-    command: require
-    arguments: roundcube/carddav dev-master
-    working_dir: "{{ roundcube_path }}"
-  become_user: "{{ roundcube_user }}"
+- name: get RCMCardDav release
+  get_url:
+    url: "https://github.com/blind-coder/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-{{ roundcube_carddav_version }}.tar.bz2"
+    dest: "{{ roundcube_path }}/plugins"
+  register: carddav
   when: not ansible_check_mode
 
+- name: unarchive RCMCardDav
+  unarchive:
+    src: "{{ roundcube_path }}/plugins/carddav-{{ roundcube_carddav_version }}.tar.bz2"
+    dest: "{{ roundcube_path }}/plugins/"
+    copy: no
+  when: carddav.changed
+
+- name: ensure current RCMCardDav config
+  template:
+    src: "plugins/carddav/config.inc.php.j2"
+    dest: "{{ roundcube_path }}/plugins/carddav/config.inc.php"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0640

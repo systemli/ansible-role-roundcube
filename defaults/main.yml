@@ -4,10 +4,10 @@ roundcube_domain: mail.systemli.org
 roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
 roundcube_support_url: https://www.systemli.org/kontakt.html
-roundcube_path: /var/www/{{ roundcube_domain }}/www
 roundcube_user: roundcube
 roundcube_user_shell: /bin/false
-roundcube_user_home: /var/www/{{ roundcube_domain }}
+roundcube_user_home: "/var/www/{{ roundcube_domain }}"
+roundcube_path: "{{ roundcube_user_home }}/www"
 roundcube_mysql_user: roundcube
 roundcube_mysql_password: "{{ roundcube_mysql_password_enc }}"
 roundcube_mysql_db: roundcubemail
@@ -37,7 +37,6 @@ roundcube_plugins:
 # list of additional configs, e.g. for plugins
 roundcube_configs_extra:
   - plugins/enigma/config.inc.php
-  - plugins/carddav/config.inc.php
 
 # enigma plugin settings
 enigma_password_time: 1
@@ -49,6 +48,9 @@ roundcube_dependencies:
   - "{{ 'php5-curl' if ansible_distribution_major_version|int <= 8 else 'php-curl' }}" # rcmcarddav
   - python-mysqldb
   - git
+
+# carddav
+roundcube_carddav_version: 3.0.3
 
 # getmail
 roundcube_getmail_repo: https://github.com/t2d/roundcube-getmail.git

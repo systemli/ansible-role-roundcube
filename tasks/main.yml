@@ -66,10 +66,6 @@
     recurse: yes
   when: version.stdout != roundcube_version
 
-- import_tasks: carddav.yml
-  tags:
-    - carddav
-
 - name: ensure roundcube and plugin configs are latest
   template:
     src: "{{ item }}.j2"
@@ -82,7 +78,6 @@
     - "{{ roundcube_configs_extra|d() }}"
   tags:
     - sieve
-    - carddav
     - skin
 
 - name: run roundcube upgrade script
@@ -118,6 +113,12 @@
   tags:
     - skin
 
+- import_tasks: carddav.yml
+  when: "'carddav' in roundcube_plugins"
+  tags:
+    - carddav
+
 - import_tasks: getmail.yml
+  when: "'getmail' in roundcube_plugins"
   tags:
     - getmail
