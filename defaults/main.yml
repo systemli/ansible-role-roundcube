@@ -27,7 +27,7 @@ roundcube_draft_autosave: 60
 
 roundcube_plugins:
  - archive
-# - carddav
+ - carddav
  - enigma
  - getmail
  - markasjunk
