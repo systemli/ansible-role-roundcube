@@ -4,7 +4,8 @@
   synchronize:
     src: larry-custom
     dest:  "{{ roundcube_path }}/skins/"
-    archive: false
+    owner: false
+    group: false
   when: roundcube_skin == 'larry-custom'
 
 - name: ensure custom skin dir has correct permissions
