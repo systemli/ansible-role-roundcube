@@ -1,4 +1,5 @@
 ---
+
 - name: ensure roundcube user is present
   user:
     name: "{{ roundcube_user }}"
@@ -30,32 +31,26 @@
     state: present
     install_recommends: False
 
-- name: register version
-  shell: "grep -m1 {{ roundcube_version }} {{ roundcube_path }}/CHANGELOG | sed 's/RELEASE //'"
-  register: version
-  check_mode: no
-  changed_when: False
-  ignore_errors: yes
-
 - name: get roundcube release
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
-  when: version.stdout != roundcube_version
+  when: not ansible_check_mode
+  register: download
 
 - name: unarchive roundcube
   unarchive:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
     copy: no
-  when: version.stdout != roundcube_version
+  when: download.changed
 
-- name: sync current roundcube directory
-  synchronize:
+- name: link to current release
+  file:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
-  delegate_to: "{{ inventory_hostname }}"
-  when: version.stdout != roundcube_version
+    state: link
+  register: link
 
 - name: change owner+group to roundcube user
   file:
@@ -64,7 +59,6 @@
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     recurse: yes
-  when: version.stdout != roundcube_version
 
 - name: ensure roundcube and plugin configs are latest
   template:
@@ -81,8 +75,8 @@
     - skin
 
 - name: run roundcube upgrade script
-  command: "{{ roundcube_path }}/bin/update.sh -v {{ version.stdout }}"
-  when: (version.stdout != roundcube_version) and (version.stdout != '')
+  command: "{{ roundcube_path }}/bin/update.sh"
+  when: link.changed
 
 - name: create Roundcube cleandb cronjob
   cron:
@@ -100,14 +94,6 @@
     user: "{{ roundcube_user }}"
     job: "{{ roundcube_path }}/bin/gc.sh >/dev/null"
     cron_file: roundcube
-
-- name: ensure installed release archive is absent
-  file:
-    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}{{ item }}"
-    state: absent
-  with_items:
-    - '-complete.tar.gz'
-    - ''
 
 - import_tasks: skin.yml
   tags:
