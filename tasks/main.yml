@@ -42,6 +42,8 @@
   unarchive:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
     copy: no
   when: download.changed
 
@@ -50,15 +52,8 @@
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
     state: link
+    mode: 0750
   register: link
-
-- name: change owner+group to roundcube user
-  file:
-    path: "{{ roundcube_path }}"
-    state: directory
-    owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
-    recurse: yes
 
 - name: ensure roundcube and plugin configs are latest
   template:
