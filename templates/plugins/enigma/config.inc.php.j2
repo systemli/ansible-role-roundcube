@@ -14,7 +14,7 @@ $config['enigma_debug'] = false;
 
 // Keys directory for all users. Default 'enigma/home'.
 // Must be writeable by PHP process
-$config['enigma_pgp_homedir'] = null;
+$config['enigma_pgp_homedir'] = '{{ roundcube_enigma_home }}';
 
 // Location of gpg binary. By default it will be auto-detected.
 // This is also a way to force gpg2 use if there are both 1.x and 2.x on the system.
@@ -48,7 +48,7 @@ $config['enigma_attach_pubkey'] = false;
 
 // Default for how long to store private key passwords (in minutes).
 // When set to 0 passwords will be stored for the whole session.
-$config['enigma_password_time'] = {{ roundcube_enigma_password_time|d('5') }};
+$config['enigma_password_time'] = {{ roundcube_enigma_password_time }};
 
 // With this option you can lock composing options
 // of the plugin forcing the user to use configured settings.

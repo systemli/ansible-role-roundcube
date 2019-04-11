@@ -99,6 +99,11 @@
   tags:
     - carddav
 
+- import_tasks: enigma.yml
+  when: "'enigma' in roundcube_plugins"
+  tags:
+    - enigma
+
 - import_tasks: getmail.yml
   when: "'getmail' in roundcube_plugins"
   tags:

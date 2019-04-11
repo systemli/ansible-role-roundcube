@@ -1,0 +1,9 @@
+---
+
+- name: ensure enigma home is present
+  file:
+    path: "{{ roundcube_enigma_home }}"
+    state: directory
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_user }}"
+    mode: 0700
