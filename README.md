@@ -54,7 +54,7 @@ roundcube_configs_extra:
 
 # enigma plugin settings
 roundcube_enigma_password_time: 5
-roundcube_enigma_home: "{{ roundcube_path }}/enigma/home"
+roundcube_enigma_home: "{{ roundcube_user_home }}/enigma/home"
 
 roundcube_dependencies:
   - "{{ 'php5-intl' if ansible_distribution_major_version|int <= 8 else 'php-intl' }}"
