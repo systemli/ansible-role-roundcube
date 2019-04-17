@@ -24,3 +24,4 @@
     name: "Getmail"
     minute: "*/10"
     job: "{{ roundcube_path }}/plugins/getmail/bin/cron.php"
+    cron_file: roundcube
