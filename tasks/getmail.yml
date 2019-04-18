@@ -22,7 +22,7 @@
 - name: Call cron.php with cron
   cron:
     name: "Getmail"
-    minute: "*/10"
+    minute: "0"
     job: "{{ roundcube_path }}/plugins/getmail/bin/cron.php"
     user: root
     cron_file: roundcube
