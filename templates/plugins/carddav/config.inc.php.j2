@@ -229,15 +229,15 @@ $prefs['Work'] = array(
 {% if roundcube_carddav_url is defined %}
 // nextcloud
 $prefs['Personal'] = array(
-	'name'         =>  'Nextcloud',
-	'username'     =>  '%u', 
-	'password'     =>  '%p',
-	'url'          =>  '{{ roundcube_carddav_url }}',
-	'active'       =>  true,
-	'readonly'     =>  false,
-	'refresh_time' => '01:00:00',
-
-	'fixed'        =>  array( 'name', 'username', 'password' ),
-	'hide'        =>  false,
+	'name'           =>  'Nextcloud',
+	'username'       =>  '%u', 
+	'password'       =>  '%p',
+	'url'            =>  '{{ roundcube_carddav_url }}',
+	'active'         =>  true,
+	'readonly'       =>  false,
+	'refresh_time'   =>  '01:00:00',
+	'use_categories' =>  true,
+	'fixed'          =>  array( 'name', 'username', 'password' ),
+	'hide'           =>  false,
 );
 {% endif %}
