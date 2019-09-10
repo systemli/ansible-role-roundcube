@@ -1,5 +1,5 @@
 roundcube_repo: https://github.com/roundcube/roundcubemail
-roundcube_version: "1.3.10"
+roundcube_version: "1.3.10" # do not forget to apply carddav fix (https://github.com/blind-coder/rcmcarddav/commit/83bc66f4691ac6f72062ad6171a3e69f0b9370b0), if not already applied upstream
 roundcube_domain: mail.systemli.org
 roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
