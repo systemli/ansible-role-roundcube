@@ -1,15 +1,21 @@
- - name: Import database
-   mysql_db:
-     name: "{{ roundcube_mysql_db }}"
-     state: import
-     target: "{{ roundcube_path }}/SQL/mysql.initial.sql"
-     login_user: "{{ roundcube_mysql_user }}"
-     login_password: "{{ roundcube_mysql_password }}"
+---
+- name: Import database
+  mysql_db:
+    name: "{{ roundcube_mysql_db }}"
+    state: import
+    target: "{{ roundcube_path }}/SQL/mysql.initial.sql"
+    login_user: "{{ roundcube_mysql_user }}"
+    login_password: "{{ roundcube_mysql_password }}"
 
- - name: Update database for getmail
-   mysql_db:
-     name: "{{ roundcube_mysql_db }}"
-     state: import
-     target: "{{ roundcube_path }}/plugins/getmail/drivers/database/SQL/mysql.initial.sql"
-     login_user: "{{ roundcube_mysql_user }}"
-     login_password: "{{ roundcube_mysql_password }}"
+- name: Update database for getmail
+  mysql_db:
+    name: "{{ roundcube_mysql_db }}"
+    state: import
+    target: "{{ roundcube_path }}/plugins/getmail/drivers/database/SQL/mysql.initial.sql"
+    login_user: "{{ roundcube_mysql_user }}"
+    login_password: "{{ roundcube_mysql_password }}"
+
+- name: restart apache
+  service:
+    name: apache2
+    state: restarted

@@ -54,6 +54,7 @@
     state: link
     mode: 0750
   register: link
+  notify: restart apache
 
 - name: ensure roundcube and plugin configs are latest
   template:
