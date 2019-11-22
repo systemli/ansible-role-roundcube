@@ -74,17 +74,14 @@ $config['default_host'] = '{{ roundcube_default_host }}';
 // For example %n = mail.domain.tld, %t = domain.tld
 $config['smtp_server'] = '{{ roundcube_smtp_server|d() }}';
 
-// SMTP port (default is 25; use 587 for STARTTLS or 465 for the
-// deprecated SSL over SMTP (aka SMTPS))
-$config['smtp_port'] = {{ roundcube_smpt_port|d('25') }};
+// SMTP port (default is 587)
+$config['smtp_port'] = {{ roundcube_smtp_port }};
 
-// SMTP username (if required) if you use %u as the username Roundcube
-// will use the current username for login
-$config['smtp_user'] = '{{ roundcube_smtp_user|d('') }}';
+// SMTP username (if required). %u will use the current username for login
+$config['smtp_user'] = '{{ roundcube_smtp_user }}';
 
-// SMTP password (if required) if you use %p as the password Roundcube
-// will use the current user's password for login
-$config['smtp_pass'] = '{{ roundcube_smtp_pass|d('') }}';
+// SMTP password (if required). %p will use the current user's password for login
+$config['smtp_pass'] = '{{ roundcube_smtp_pass }}';
 
 // ----------------------------------
 // SYSTEM

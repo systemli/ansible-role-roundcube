@@ -28,7 +28,7 @@ roundcube_mysql_db: roundcubemail
 roundcube_default_host: localhost
 roundcube_skin: larry
 roundcube_smtp_server: 'tls://{{ roundcube_domain }}'
-roundcube_smtp_port: 25
+roundcube_smtp_port: 587
 roundcube_smtp_user: '%u'
 roundcube_smtp_pass: '%p'
 roundcube_identities_level: 1
