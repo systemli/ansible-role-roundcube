@@ -1,20 +1,20 @@
 ---
 
-- name: create custom skin dir 
+- name: create custom skin dir for elastic skin
   synchronize:
-    src: larry-custom
+    src: elastic_systemli
     dest:  "{{ roundcube_path }}/skins/"
     owner: false
     group: false
-  when: roundcube_skin == 'larry-custom'
+  when: roundcube_skin == 'elastic_systemli'
 
 - name: ensure custom skin dir has correct permissions
   file:
-    path:  "{{ roundcube_path }}/skins/larry-custom/"
+    path:  "{{ roundcube_path }}/skins/{{ roundcube_skin }}/"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     recurse: true
-  when: roundcube_skin == 'larry-custom'
+  when: roundcube_skin == 'elastic_systemli'
 
 - name: copy custom logo to image directory
   copy:
