@@ -2,7 +2,7 @@
 
 - name: create custom skin dir for elastic skin
   synchronize:
-    src: elastic_systemli
+    src: "{{ roundcube_skin }}"
     dest:  "{{ roundcube_path }}/skins/"
     owner: false
     group: false
@@ -18,7 +18,7 @@
 
 - name: copy custom logo to image directory
   copy:
-    src: "{{ roundcube_custom_logo }}"
+    src: "roundcube/{{ roundcube_custom_logo }}"
     dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
@@ -27,9 +27,9 @@
 
 - name: copy custom favicon
   copy:
-    src: "{{ roundcube_custom_favicon_path }}"
-    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/favicon.ico"
+    src: "roundcube/{{ roundcube_custom_favicon }}"
+    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_favicon }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     mode: 0644
-  when: roundcube_custom_favicon_path|d()
+  when: roundcube_custom_favicon|d()
