@@ -107,7 +107,7 @@ $config['skin_logo'] = array(
      // show the image /images/rc_systemli_logo.png on the login template in all skins
      //"elastic_systemli:login" => "/images/rc_systemli_logo.png",
      // use /images/favicon_systemli.ico as favicon
-     "favicon" => "/images/{{ roundcube_custom_favicon }}",
+     "elastic_systemli:*[favicon]" => "/images/{{ roundcube_custom_favicon }}",
      // show the image /images/logo_systemli.png in the Elastic skin
      "elastic_systemli:*" => "/images/{{ roundcube_custom_logo }}",
    );
