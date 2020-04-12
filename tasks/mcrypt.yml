@@ -1,0 +1,13 @@
+---
+- name: ensure mcrypt dir is present
+  file:
+    path: /usr/lib/php/20180731/
+    state: directory
+
+- name: install custom mcrypt
+  copy:
+    src: mcrypt.so
+    dest: /usr/lib/php/20180731/mcrypt.so
+    owner: root
+    group: root
+    mode: 0644

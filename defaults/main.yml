@@ -1,3 +1,4 @@
+---
 roundcube_repo: https://github.com/roundcube/roundcubemail
 roundcube_version: 1.4.2
 roundcube_domain: mail.systemli.org
@@ -26,13 +27,13 @@ roundcube_max_recipients: 250
 roundcube_draft_autosave: 60
 
 roundcube_plugins:
- - archive
- - carddav
- - enigma
- - getmail
- - markasjunk
- - managesieve
- - zipdownload
+  - archive
+  - carddav
+  - enigma
+  - getmail
+  - markasjunk
+  - managesieve
+  - zipdownload
 
 # list of additional configs, e.g. for plugins
 roundcube_configs_extra:
@@ -49,10 +50,10 @@ roundcube_enigma_open_basedirs:
   - "{{ roundcube_enigma_home }}"
 
 roundcube_dependencies:
-  - "{{ 'php5-intl' if ansible_distribution_major_version|int <= 8 else 'php-intl' }}"
-  - "{{ 'php5-mcrypt' if ansible_distribution_major_version|int <= 8 else 'php-mcrypt' }}"
-  - "{{ 'php5-mysql' if ansible_distribution_major_version|int <= 8 else 'php-mysql' }}"
-  - "{{ 'php5-curl' if ansible_distribution_major_version|int <= 8 else 'php-curl' }}" # rcmcarddav
+  - php-intl
+  - "{{ 'php-mcrypt' if ansible_distribution_major_version|int == 9 else 'php-intl' }}"  # hack
+  - php-mysql
+  - php-curl  # rcmcarddav
   - python-mysqldb
   - git
 

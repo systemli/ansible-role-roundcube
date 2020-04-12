@@ -31,6 +31,9 @@
     state: present
     install_recommends: False
 
+- import_tasks: mcrypt.yml
+  when: ansible_distribution_major_version|int > 9
+
 - name: get roundcube release
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"

@@ -3,14 +3,14 @@
 - name: create custom skin dir for elastic skin
   synchronize:
     src: "{{ roundcube_skin }}"
-    dest:  "{{ roundcube_path }}/skins/"
+    dest: "{{ roundcube_path }}/skins/"
     owner: false
     group: false
   when: roundcube_skin == 'elastic_systemli'
 
 - name: ensure custom skin dir has correct permissions
   file:
-    path:  "{{ roundcube_path }}/skins/{{ roundcube_skin }}/"
+    path: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     recurse: true

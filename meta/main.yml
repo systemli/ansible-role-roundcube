@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: roundcube
   author: systemli
@@ -12,5 +13,6 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - all
+        - stretch
+        - buster
 dependencies: []
