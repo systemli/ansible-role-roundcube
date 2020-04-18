@@ -12,8 +12,7 @@
     password: "{{ roundcube_mysql_password }}"
     priv: "{{ roundcube_mysql_db }}.*:ALL,GRANT"
     state: present
-    login_user: root
-    login_password: "{{ roundcube_root_mysql_password }}"
+    login_unix_socket: /run/mysqld/mysqld.sock
 
 - name: ensure database is present
   mysql_db:
@@ -21,8 +20,7 @@
     state: present
     encoding: "utf8"
     collation: "utf8_general_ci"
-    login_user: root
-    login_password: "{{ roundcube_root_mysql_password }}"
+    login_unix_socket: /run/mysqld/mysqld.sock
   notify: Import database
 
 - name: install Roundcube dependencies
