@@ -21,3 +21,8 @@
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     mode: 0640
+
+- name: Patch RCMCardDav for Nextcloud
+  patch:
+    src: 0001-silently-fail-if-preset-cannot-be-loaded.patch
+    dest: "{{ roundcube_path }}/plugins/carddav/carddav_discovery.php"

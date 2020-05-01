@@ -1,0 +1,28 @@
+From 83bc66f4691ac6f72062ad6171a3e69f0b9370b0 Mon Sep 17 00:00:00 2001
+From: Benjamin 'blindCoder' Schieder <benjamin@anderdonau.de>
+Date: Tue, 13 Aug 2019 08:19:55 +0200
+Subject: [PATCH] silently fail if preset cannot be loaded
+
+---
+ carddav_discovery.php | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/carddav_discovery.php b/carddav_discovery.php
+index 200930c..40a444b 100644
+--- a/carddav_discovery.php
++++ b/carddav_discovery.php
+@@ -124,6 +124,11 @@ EOF
+ 	);
+ 
+ 	$reply = self::$helper->cdfopen($url, $opts, $cdfopen_cfg);
++	if ($reply["status"] >= 400) { # something went wrong, unprovisioned preset?
++		# ownCloud and NextCloud do not provision users if they authenticate via DAV.
++		# Should really report this nonsense to them.
++		return false;
++	}
+ 	$xml = self::$helper->checkAndParseXML($reply);
+ 	if($xml === false) return false;
+ 
+-- 
+2.25.1
+
