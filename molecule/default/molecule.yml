@@ -1,0 +1,16 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: buster64
+    box: debian/buster64
+  - name: stretch64
+    box: debian/stretch64
+lint: yamllint .
+provisioner:
+  name: ansible
+  become: true
+verifier:
+  name: goss

@@ -3,7 +3,11 @@
   git:
     repo: "{{ roundcube_getmail_repo }}"
     dest: "{{ roundcube_path }}/plugins/getmail"
+    version: "{{ roundcube_getmail_version }}"
   become_user: "{{ roundcube_user }}"
+  become: true
+  vars:
+    ansible_ssh_pipelining: True
 
 - name: ensure getmail config is latest
   template:

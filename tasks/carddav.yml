@@ -7,7 +7,7 @@
   register: carddav
   when: not ansible_check_mode
 
-- name: unarchive RCMCardDav
+- name: unarchive RCMCardDav  # noqa 503
   unarchive:
     src: "{{ roundcube_path }}/plugins/carddav-{{ roundcube_carddav_version }}.tar.bz2"
     dest: "{{ roundcube_path }}/plugins/"

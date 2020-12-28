@@ -39,7 +39,7 @@
   when: not ansible_check_mode
   register: download
 
-- name: unarchive roundcube
+- name: unarchive roundcube  # noqa 503
   unarchive:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
@@ -71,15 +71,15 @@
     - sieve
     - skin
 
-- name: run roundcube upgrade script
+- name: run roundcube upgrade script  # noqa 503
   command: "{{ roundcube_path }}/bin/update.sh"
   when: link.changed
 
 - name: create Roundcube cleandb cronjob
   cron:
     name: "Roundcube cleandb cronjob"
-    minute: 10
-    hour: 6
+    minute: "10"
+    hour: "6"
     user: "{{ roundcube_user }}"
     job: "{{ roundcube_path }}/bin/cleandb.sh >/dev/null"
     cron_file: roundcube
@@ -87,7 +87,7 @@
 - name: create Roundcube garbage collector cronjob
   cron:
     name: "Roundcube garbage collector cronjob"
-    minute: 30
+    minute: "30"
     user: "{{ roundcube_user }}"
     job: "{{ roundcube_path }}/bin/gc.sh >/dev/null"
     cron_file: roundcube
