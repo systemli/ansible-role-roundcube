@@ -1,6 +1,6 @@
 # ansible-role-roundcube
 
-[![Build Status](https://github.com/systemli/ansible-role-roundcube/workflows/Molecule/badge.svg?branch=master)](https://github.com/systemli/ansible-role-roundcube/actions?query=workflow%3AIntegration)
+[![Build Status](https://github.com/systemli/ansible-role-roundcube/workflows/Integration/badge.svg?branch=master)](https://github.com/systemli/ansible-role-roundcube/actions?query=workflow%3AIntegration)
 
 Install and configure Roundcube.
 This includes configuration of the Roundcube Getmail Plugin.
