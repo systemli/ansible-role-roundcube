@@ -3,6 +3,7 @@
   git:
     repo: "{{ roundcube_getmail_repo }}"
     dest: "{{ roundcube_path }}/plugins/getmail"
+    version: master
   become_user: "{{ roundcube_user }}"
 
 - name: ensure getmail config is latest

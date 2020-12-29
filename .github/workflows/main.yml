@@ -17,7 +17,6 @@ jobs:
       matrix:
         distro:
           - debian10
-          - debian9
 
     steps:
       - name: Check out the codebase.
@@ -29,10 +28,11 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible-lint molecule[docker] molecule-goss yamllint
+        run: pip3 install ansible-lint molecule[docker] yamllint
 
       - name: Run Molecule tests.
-        run: molecule test -s docker
+#        run: molecule test -s docker
+        run: molecule lint
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

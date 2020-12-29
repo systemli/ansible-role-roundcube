@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+platforms:
+  - name: instance
+lint: |
+  yamllint .
+#  ansible-lint
+provisioner:
+  name: ansible
+  enabled: false
+verifier:
+  name: ansible
+  enabled: false
