@@ -30,7 +30,6 @@ roundcube_plugins:
   - archive
   - carddav
   - enigma
-  - getmail
   - markasjunk
   - managesieve
   - zipdownload
@@ -59,6 +58,3 @@ roundcube_dependencies:
 
 # carddav
 roundcube_carddav_version: 3.0.3
-
-# getmail
-roundcube_getmail_repo: https://github.com/t2d/roundcube-getmail.git
