@@ -2,14 +2,14 @@
 
 - name: get RCMCardDav release
   get_url:
-    url: "https://github.com/blind-coder/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-{{ roundcube_carddav_version }}.tar.bz2"
+    url: "https://github.com/mstilkerich/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-v{{ roundcube_carddav_version }}.tar.gz"
     dest: "{{ roundcube_path }}/plugins"
   register: carddav
   when: not ansible_check_mode
 
 - name: unarchive RCMCardDav
   unarchive:
-    src: "{{ roundcube_path }}/plugins/carddav-{{ roundcube_carddav_version }}.tar.bz2"
+    src: "{{ roundcube_path }}/plugins/carddav-v{{ roundcube_carddav_version }}.tar.gz"
     dest: "{{ roundcube_path }}/plugins/"
     copy: no
   when: carddav.changed
@@ -21,8 +21,3 @@
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     mode: 0640
-
-- name: Patch RCMCardDav for Nextcloud
-  patch:
-    src: 0001-silently-fail-if-preset-cannot-be-loaded.patch
-    dest: "{{ roundcube_path }}/plugins/carddav/carddav_discovery.php"

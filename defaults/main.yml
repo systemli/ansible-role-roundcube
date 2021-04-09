@@ -57,4 +57,4 @@ roundcube_dependencies:
   - git
 
 # carddav
-roundcube_carddav_version: 3.0.3
+roundcube_carddav_version: 4.1.1
