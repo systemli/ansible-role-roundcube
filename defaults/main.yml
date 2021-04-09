@@ -53,7 +53,7 @@ roundcube_dependencies:
   - "{{ 'php-mcrypt' if ansible_distribution_major_version|int == 9 else 'libmcrypt-dev' }}"
   - php-mysql
   - php-curl  # rcmcarddav
-  - python-mysqldb
+  - python3-mysqldb
   - git
 
 # carddav
