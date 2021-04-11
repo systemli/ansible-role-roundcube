@@ -60,7 +60,7 @@ $prefs['<Presetname>'] = [
 
 {% if roundcube_carddav_url is defined %}
 // nextcloud
-$prefs['Personal'] = array(
+$prefs['Personal'] = [
 	'name'           =>  'Nextcloud',
 	'url'            =>  '{{ roundcube_carddav_url }}',
 	'username'       =>  '%u', 
@@ -68,9 +68,9 @@ $prefs['Personal'] = array(
 	'active'         =>  true,
 	'readonly'       =>  false,
 	'refresh_time'   =>  '01:00:00',
-	'fixed'          =>  array( 'name', 'username', 'password' ),
+	'fixed'          =>  [ 'name', 'username', 'password' ],
 	'hide'           =>  false,
-);
+];
 {% endif %}
 
 // vim: ts=4:sw=4:expandtab:fenc=utf8:ff=unix:tw=120
