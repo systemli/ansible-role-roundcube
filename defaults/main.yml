@@ -1,6 +1,6 @@
 ---
 roundcube_repo: https://github.com/roundcube/roundcubemail
-roundcube_version: 1.5.1
+roundcube_version: 1.5.2
 roundcube_domain: mail.systemli.org
 roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
