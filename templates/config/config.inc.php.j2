@@ -4,7 +4,7 @@
  +-----------------------------------------------------------------------+
  | Local configuration for the Roundcube Webmail installation.           |
  |                                                                       |
- | This is a sample configuration file only containing the minumum       |
+ | This is a sample configuration file only containing the minimum       |
  | setup required for a functional installation. Copy more options       |
  | from defaults.inc.php to this file to override the defaults.          |
  |                                                                       |
@@ -17,7 +17,7 @@
  +-----------------------------------------------------------------------+
 */
 
-$config = array();
+$config = [];
 
 // Database connection string (DSN) for read+write operations
 // Format (compatible with PEAR MDB2): db_provider://user:password@host/database
@@ -33,17 +33,9 @@ $config['log_driver'] = 'syslog';
 // Syslog ident string to use, if using the 'syslog' log driver.
 $config['syslog_id'] = 'roundcube';
 
-// The IMAP host chosen to perform the log-in.
-// Leave blank to show a textbox at login, give a list of hosts
-// to display a pulldown menu or set one host as string.
-// To use SSL/TLS connection, enter hostname with prefix ssl:// or tls://
-// Supported replacement variables:
-// %n - hostname ($_SERVER['SERVER_NAME'])
-// %t - hostname without the first part
-// %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
-// %s - domain name after the '@' from e-mail address provided at login screen
-// For example %n = mail.domain.tld, %t = domain.tld
-$config['default_host'] = '{{ roundcube_default_host }}';
+// IMAP host chosen to perform the log-in.
+// See defaults.inc.php for the option description.
+$config['imap_host'] = '{{ roundcube_imap_host|d(roundcube_default_host) }}';
 
 // SMTP server host (for sending mails).
 // Enter hostname with prefix tls:// to use STARTTLS, or use
@@ -55,11 +47,9 @@ $config['default_host'] = '{{ roundcube_default_host }}';
 // %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)
 // %z - IMAP domain (IMAP hostname without the first part)
 // For example %n = mail.domain.tld, %t = domain.tld
-$config['smtp_server'] = '{{ roundcube_smtp_server|d() }}';
-
-// SMTP port (default is 25; use 587 for STARTTLS or 465 for the
-// deprecated SSL over SMTP (aka SMTPS))
-$config['smtp_port'] = {{ roundcube_smtp_port }};
+// To specify different SMTP servers for different IMAP hosts provide an array
+// of IMAP host (no prefix or port) and SMTP server e.g. ['imap.example.com' => 'smtp.example.net']
+$config['smtp_host'] = '{{ roundcube_smtp_host|d(roundcube_smtp_server) }}';
 
 // SMTP username (if required) if you use %u as the username Roundcube
 // will use the current username for login
@@ -71,7 +61,7 @@ $config['smtp_pass'] = '{{ roundcube_smtp_pass }}';
 
 // don't allow these settings to be overridden by the user
 // (disable skin selection)
-$config['dont_override'] = array('skin');
+$config['dont_override'] = ['skin'];
 
 // provide an URL where a user can get support for this Roundcube installation
 // PLEASE DO NOT LINK TO THE ROUNDCUBE.NET WEBSITE HERE!
@@ -90,10 +80,11 @@ $config['support_url'] = '{{ roundcube_support_url }}';
 // - logo type - it is used for logos used on multiple templates
 //   the available types include '[favicon]' for favicon, '[print]' for logo on all print
 //   templates (e.g. messageprint, contactprint) and '[small]' for small screen logo in supported skins
+//   '[dark]' and '[small-dark]' for dark mode logo in supported skins
 //
 // Example config for skin_logo
 /*
-   array(
+   [
      // show the image /images/logo_login_small.png for the Login screen in the Elastic skin on small screens
      "elastic:login[small]" => "/images/logo_login_small.png",
      // show the image /images/logo_login.png for the Login screen in the Elastic skin
@@ -106,17 +97,17 @@ $config['support_url'] = '{{ roundcube_support_url }}';
      "login" => "/images/logo_login.png",
      // show the image /images/logo_print.png for all print type logos in all skins
      "[print]" => "/images/logo_print.png",
-   );
+   ];
 */
 {% if roundcube_custom_logo is defined %}
-$config['skin_logo'] = array(
+$config['skin_logo'] = [
      // show the image /images/rc_systemli_logo.png on the login template in all skins
      //"elastic_systemli:login" => "/images/rc_systemli_logo.png",
      // use /images/favicon_systemli.ico as favicon
      "elastic_systemli:*[favicon]" => "/images/{{ roundcube_custom_favicon }}",
      // show the image /images/logo_systemli.png in the Elastic skin
      "elastic_systemli:*" => "/images/{{ roundcube_custom_logo }}",
-   );
+   ];
 {% else %}
 $config['skin_logo'] = null;
 {% endif %}
@@ -125,9 +116,9 @@ $config['skin_logo'] = null;
 // 0 - disabled, 1 - username and host only, 2 - username, host, password
 $config['login_autocomplete'] = 1;
 
-// this key is used to encrypt the users imap password which is stored
-// in the session record (and the client cookie if remember password is enabled).
-// please provide a string of exactly 24 chars.
+// This key is used to encrypt the users imap password which is stored
+// in the session record. For the default cipher method it must be
+// exactly 24 characters long.
 // YOUR KEY MUST BE DIFFERENT THAN THE SAMPLE VALUE FOR SECURITY REASONS
 $config['des_key'] = '{{ roundcube_des_key }}';
 
@@ -171,20 +162,20 @@ $config['product_name'] = '{{ roundcube_product_name }}';
 $config['identities_level'] = '{{ roundcube_identities_level }}';
 
 // List of active plugins (in plugins/ directory)
-$config['plugins'] = array(
+$config['plugins'] = [
 {% for plugin in roundcube_plugins %}
     '{{ plugin }}',
 {% endfor %}
-);
+];
 
 // the default locale setting (leave empty for auto-detection)
 // RFC1766 formatted language name like en_US, de_DE, de_CH, fr_FR, pt_BR
-$rcmail_config['language'] = '{{ roundcube_language | default('') }}';
+$config['language'] = '{{ roundcube_language | default('') }}';
 
-// use this format for date display (date or strftime format)
+// use this format for date display (PHP DateTime format)
 $config['date_format'] = '{{ roundcube_date_format }}';
 
-// skin name: folder from skins/
+// Skin name: folder from skins/
 $config['skin'] = '{{ roundcube_skin }}';
 
 // save compose message every 300 seconds (5min)
