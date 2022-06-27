@@ -4,6 +4,7 @@
   get_url:
     url: "https://github.com/mstilkerich/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-v{{ roundcube_carddav_version }}.tar.gz"
     dest: "{{ roundcube_path }}/plugins"
+    mode: 0644
   register: carddav
   when: not ansible_check_mode
 

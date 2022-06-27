@@ -2,6 +2,22 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: Include role geerlingguy.apache"
+      include_role:
+        name: "geerlingguy.apache"
+
+    - name: Include role geerlingguy.php"
+      include_role:
+        name: "geerlingguy.php"
+
+    - name: "Include role systemli.mariadb"
+      include_role:
+        name: "systemli.mariadb"
+
     - name: "Include ansible-role-roundcube"
       include_role:
         name: "ansible-role-roundcube"
+      vars:
+        roundcube_mysql_password_enc: "password"
+        roundcube_des_key: "SuperS3cr3tD3SKeys"
+        testing: True
