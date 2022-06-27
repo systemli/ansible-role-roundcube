@@ -1,5 +1,10 @@
 ---
 
+- name: Ensure crontab is installed
+  apt:
+   pkg: "cron"
+   state: present
+
 - name: ensure roundcube user is present
   user:
     name: "{{ roundcube_user }}"
@@ -45,6 +50,7 @@
     dest: "{{ roundcube_user_home }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
+    mode: 0750
     copy: no
   when: download.changed
 
@@ -73,7 +79,9 @@
 
 - name: run roundcube upgrade script
   command: "{{ roundcube_path }}/bin/update.sh"
-  when: link.changed
+  when: 
+   - link.changed
+   - not testing|default(False)
 
 - name: create Roundcube cleandb cronjob
   cron:

@@ -3,6 +3,7 @@
   file:
     path: /usr/lib/php/20180731/
     state: directory
+    mode: 0755
 
 - name: install custom mcrypt
   copy:
