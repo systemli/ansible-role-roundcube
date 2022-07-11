@@ -19,4 +19,9 @@ jobs:
     name: Integration
     uses: systemli/github-ansible-workflow/.github/workflows/ansible-integration-workflow.yaml@main
     with:
+      disable-apparmor-mysql: true
       distros: '[ "debian11", "debian10" ]'
+      role-dependencies: |
+        - src: geerlingguy.apache
+        - src: geerlingguy.php
+        - src: systemli.mariadb
