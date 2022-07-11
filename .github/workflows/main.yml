@@ -25,5 +25,3 @@ jobs:
         - src: geerlingguy.apache
         - src: geerlingguy.php
         - src: systemli.mariadb
-    secrets:
-      galaxy-token: ${{ secrets.galaxy_api_key }}
