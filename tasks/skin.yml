@@ -32,4 +32,4 @@
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
     mode: 0644
-  when: roundcube_custom_favicon|d()
+  when: roundcube_custom_favicon | default()
