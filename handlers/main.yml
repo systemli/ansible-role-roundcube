@@ -13,7 +13,7 @@
     target: "{{ roundcube_path }}/plugins/getmail/drivers/database/SQL/mysql.initial.sql"
     login_unix_socket: /run/mysqld/mysqld.sock
 
-- name: restart apache
+- name: Restart apache
   service:
     name: apache2
     state: restarted

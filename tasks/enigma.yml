@@ -1,6 +1,6 @@
 ---
 
-- name: ensure enigma home is present
+- name: Ensure enigma home is present
   file:
     path: "{{ roundcube_enigma_home }}"
     state: directory

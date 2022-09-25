@@ -49,7 +49,7 @@ roundcube_enigma_open_basedirs:
 
 roundcube_dependencies:
   - php-intl
-  - "{{ 'php-mcrypt' if ansible_distribution_major_version|int == 9 else 'libmcrypt-dev' }}"
+  - libmcrypt-dev
   - php-mysql
   - php-curl  # rcmcarddav
   - python3-mysqldb

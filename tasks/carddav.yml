@@ -1,6 +1,6 @@
 ---
 
-- name: get RCMCardDav release
+- name: Get RCMCardDav release
   get_url:
     url: "https://github.com/mstilkerich/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-v{{ roundcube_carddav_version }}.tar.gz"
     dest: "{{ roundcube_path }}/plugins"
@@ -8,14 +8,14 @@
   register: carddav
   when: not ansible_check_mode
 
-- name: unarchive RCMCardDav
+- name: Unarchive RCMCardDav
   unarchive:
     src: "{{ roundcube_path }}/plugins/carddav-v{{ roundcube_carddav_version }}.tar.gz"
     dest: "{{ roundcube_path }}/plugins/"
     copy: no
   when: carddav.changed
 
-- name: ensure current RCMCardDav config
+- name: Ensure current RCMCardDav config
   template:
     src: "plugins/carddav/config.inc.php.j2"
     dest: "{{ roundcube_path }}/plugins/carddav/config.inc.php"

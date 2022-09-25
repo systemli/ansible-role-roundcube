@@ -5,13 +5,13 @@
    pkg: "cron"
    state: present
 
-- name: ensure roundcube user is present
+- name: Ensure roundcube user is present
   user:
     name: "{{ roundcube_user }}"
     home: "{{ roundcube_user_home }}"
     shell: "{{ roundcube_user_shell }}"
 
-- name: ensure database user is present
+- name: Ensure database user is present
   mysql_user:
     name: "{{ roundcube_mysql_user }}"
     password: "{{ roundcube_mysql_password }}"
@@ -19,7 +19,7 @@
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
 
-- name: ensure database is present
+- name: Ensure database is present
   mysql_db:
     name: "{{ roundcube_mysql_db }}"
     state: present
@@ -28,7 +28,7 @@
     login_unix_socket: /run/mysqld/mysqld.sock
   notify: Import database
 
-- name: install Roundcube dependencies
+- name: Install Roundcube dependencies
   apt:
     pkg: "{{ roundcube_dependencies }}"
     state: present
@@ -37,14 +37,14 @@
 - import_tasks: mcrypt.yml
   when: ansible_distribution_major_version|int > 9
 
-- name: get roundcube release
+- name: Get roundcube release
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
   when: not ansible_check_mode
   register: download
 
-- name: unarchive roundcube
+- name: Unarchive roundcube
   unarchive:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
@@ -54,16 +54,16 @@
     copy: no
   when: download.changed
 
-- name: link to current release
+- name: Link to current release
   file:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
     state: link
     mode: 0750
   register: link
-  notify: restart apache
+  notify: Restart apache
 
-- name: ensure roundcube and plugin configs are latest
+- name: Ensure roundcube and plugin configs are latest
   template:
     src: "{{ item }}.j2"
     dest: "{{ roundcube_path }}/{{ item }}"
@@ -77,13 +77,13 @@
     - sieve
     - skin
 
-- name: run roundcube upgrade script
+- name: Run roundcube upgrade script
   command: "{{ roundcube_path }}/bin/update.sh"
   when: 
    - link.changed
    - not testing|default(False)
 
-- name: create Roundcube cleandb cronjob
+- name: Create Roundcube cleandb cronjob
   cron:
     name: "Roundcube cleandb cronjob"
     minute: "10"
@@ -92,7 +92,7 @@
     job: "{{ roundcube_path }}/bin/cleandb.sh >/dev/null"
     cron_file: roundcube
 
-- name: create Roundcube garbage collector cronjob
+- name: Create Roundcube garbage collector cronjob
   cron:
     name: "Roundcube garbage collector cronjob"
     minute: "30"
