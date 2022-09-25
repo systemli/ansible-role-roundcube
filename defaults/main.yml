@@ -1,6 +1,6 @@
 ---
 roundcube_repo: https://github.com/roundcube/roundcubemail
-roundcube_version: 1.5.3
+roundcube_version: 1.6.0
 roundcube_domain: mail.systemli.org
 roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
@@ -12,10 +12,9 @@ roundcube_path: "{{ roundcube_user_home }}/www"
 roundcube_mysql_user: roundcube
 roundcube_mysql_password: "{{ roundcube_mysql_password_enc }}"
 roundcube_mysql_db: roundcubemail
-roundcube_default_host: 'ssl://{{ roundcube_domain }}:993'
+roundcube_imap_host: 'ssl://{{ roundcube_domain }}:993'
 roundcube_skin: elastic
-roundcube_smtp_server: 'ssl://{{ roundcube_domain }}'
-roundcube_smtp_port: 465
+roundcube_smtp_host: 'ssl://{{ roundcube_domain }}:465'
 roundcube_smtp_user: '%u'
 roundcube_smtp_pass: '%p'
 roundcube_identities_level: 1
@@ -57,4 +56,4 @@ roundcube_dependencies:
   - git
 
 # carddav
-roundcube_carddav_version: 4.3.0
+roundcube_carddav_version: 4.4.2
