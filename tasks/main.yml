@@ -34,7 +34,8 @@
     state: present
     install_recommends: False
 
-- import_tasks: mcrypt.yml
+- name: Import mcrypt tasks
+  import_tasks: mcrypt.yml
   when: ansible_distribution_major_version|int > 9
 
 - name: Get roundcube release
@@ -100,21 +101,25 @@
     job: "{{ roundcube_path }}/bin/gc.sh >/dev/null"
     cron_file: roundcube
 
-- import_tasks: skin.yml
+- name: Import skining tasks
+  import_tasks: skin.yml
   tags:
     - skin
 
-- import_tasks: carddav.yml
+- name: Import carddav plugin tasks
+  import_tasks: carddav.yml
   when: "'carddav' in roundcube_plugins"
   tags:
     - carddav
 
-- import_tasks: enigma.yml
+- name: Import enigma plugin tasks
+  import_tasks: enigma.yml
   when: "'enigma' in roundcube_plugins"
   tags:
     - enigma
 
-- import_tasks: getmail.yml
+- name: Import getmail plugin tasks
+  import_tasks: getmail.yml
   when: "'getmail' in roundcube_plugins"
   tags:
     - getmail
