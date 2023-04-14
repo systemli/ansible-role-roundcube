@@ -11,6 +11,12 @@
     home: "{{ roundcube_user_home }}"
     shell: "{{ roundcube_user_shell }}"
 
+- name: Install Roundcube dependencies
+  apt:
+    pkg: "{{ roundcube_dependencies }}"
+    state: present
+    install_recommends: False
+
 - name: Ensure database user is present
   mysql_user:
     name: "{{ roundcube_mysql_user }}"
@@ -27,12 +33,6 @@
     collation: "utf8_general_ci"
     login_unix_socket: /run/mysqld/mysqld.sock
   notify: Import database
-
-- name: Install Roundcube dependencies
-  apt:
-    pkg: "{{ roundcube_dependencies }}"
-    state: present
-    install_recommends: False
 
 - name: Import mcrypt tasks
   import_tasks: mcrypt.yml
