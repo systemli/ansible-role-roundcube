@@ -81,6 +81,7 @@
 
 - name: Run roundcube upgrade script
   command: "{{ roundcube_path }}/bin/update.sh"
+  changed_when: true
   when: 
    - link.changed
    - not testing|default(False)
