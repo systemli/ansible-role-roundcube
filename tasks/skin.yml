@@ -1,7 +1,7 @@
 ---
 
 - name: Create custom skin dir for elastic skin
-  synchronize:
+  ansible.posix.synchronize:
     src: "{{ roundcube_skin }}"
     dest: "{{ roundcube_path }}/skins/"
     owner: false
