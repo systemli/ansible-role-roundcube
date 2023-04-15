@@ -66,7 +66,7 @@
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
     state: link
-    mode: 0750
+    mode: 0755
   register: link
   notify: Restart apache
 
