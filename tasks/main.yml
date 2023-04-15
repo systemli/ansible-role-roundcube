@@ -1,4 +1,9 @@
 ---
+- name: Ensure mandatory variables are defined
+  assert:
+    that:
+      - roundcube_mysql_password is defined
+      - roundcube_des_key is defined
 
 - name: Ensure crontab is installed
   apt:
@@ -82,7 +87,7 @@
 - name: Run roundcube upgrade script
   command: "{{ roundcube_path }}/bin/update.sh"
   changed_when: true
-  when: 
+  when:
    - link.changed
    - not testing|default(False)
 
