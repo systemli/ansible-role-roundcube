@@ -57,7 +57,7 @@
     dest: "{{ roundcube_user_home }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_user }}"
-    mode: 0750
+    mode: 0755
     copy: no
   when: download.changed
 
