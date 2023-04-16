@@ -5,5 +5,5 @@
     path: "{{ roundcube_enigma_home }}"
     state: directory
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0700

@@ -10,11 +10,16 @@
    pkg: "cron"
    state: present
 
+- name: Ensure roundcube group is present
+  group:
+    name: "{{ roundcube_group }}"
+
 - name: Ensure roundcube user is present
   user:
     name: "{{ roundcube_user }}"
     home: "{{ roundcube_user_home }}"
     shell: "{{ roundcube_user_shell }}"
+    groups: "{{ roundcube_group }}"
 
 - name: Install Roundcube dependencies
   apt:
@@ -47,6 +52,8 @@
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: '0440'
   when: not ansible_check_mode
   register: download
@@ -56,7 +63,7 @@
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_user_home }}"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0750
     copy: no
   when: download.changed
@@ -65,7 +72,10 @@
   file:
     src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     state: link
+    follow: False
     mode: 0755
   register: link
   notify: Restart apache
@@ -75,7 +85,7 @@
     src: "{{ item }}.j2"
     dest: "{{ roundcube_path }}/{{ item }}"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0640
   with_items:
     - config/config.inc.php
