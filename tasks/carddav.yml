@@ -20,5 +20,5 @@
     src: "plugins/carddav/config.inc.php.j2"
     dest: "{{ roundcube_path }}/plugins/carddav/config.inc.php"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0640

@@ -6,6 +6,7 @@ roundcube_username_domain: systemli.org
 roundcube_product_name: Systemli Webmail
 roundcube_support_url: https://www.systemli.org/kontakt.html
 roundcube_user: roundcube
+roundcube_group: roundcube
 roundcube_user_shell: /bin/false
 roundcube_user_home: "/var/www/{{ roundcube_domain }}"
 roundcube_path: "{{ roundcube_user_home }}/www"

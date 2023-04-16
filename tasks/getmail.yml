@@ -11,7 +11,7 @@
     src: plugins/getmail/config.inc.php.j2
     dest: "{{ roundcube_path }}/plugins/getmail/config.inc.php"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0640
   notify: Update database for getmail
 

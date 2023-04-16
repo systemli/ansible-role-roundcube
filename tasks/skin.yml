@@ -12,7 +12,7 @@
   file:
     path: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     recurse: true
   when: roundcube_skin == 'elastic_systemli'
 
@@ -21,7 +21,7 @@
     src: "roundcube/{{ roundcube_custom_logo }}"
     dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0644
   when: roundcube_custom_logo is defined
 
@@ -30,6 +30,6 @@
     src: "roundcube/{{ roundcube_custom_favicon }}"
     dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_favicon }}"
     owner: "{{ roundcube_user }}"
-    group: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
     mode: 0644
   when: roundcube_custom_favicon | default()
