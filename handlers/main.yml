@@ -17,3 +17,4 @@
   service:
     name: apache2
     state: restarted
+  when: roundcube_apache | bool
