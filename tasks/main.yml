@@ -145,3 +145,9 @@
   when: "'getmail' in roundcube_plugins"
   tags:
     - getmail
+
+- name: Ensure the installer directory is deleted
+  file:
+    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/installer"
+    state: absent
+  when: roundcube_installer_delete | bool
