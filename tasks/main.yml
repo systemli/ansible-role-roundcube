@@ -48,6 +48,11 @@
   import_tasks: mcrypt.yml
   when: ansible_distribution_major_version|int > 9
 
+- name: Check if roundcube directory exists
+  stat:
+    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}"
+  register: "roundcube_directory"
+
 - name: Get roundcube release
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
@@ -66,7 +71,7 @@
     group: "{{ roundcube_group }}"
     mode: 0750
     copy: no
-  when: download.changed
+  when: (download.changed) or (not roundcube_directory.stat.exists)
 
 - name: Link to current release
   file:
