@@ -56,7 +56,7 @@
 - name: Get roundcube release
   get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
-    dest: "{{ roundcube_user_home }}"
+    dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: '0440'
@@ -65,8 +65,8 @@
 
 - name: Unarchive roundcube
   unarchive:
-    src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
-    dest: "{{ roundcube_user_home }}"
+    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
+    dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0750
@@ -75,7 +75,7 @@
 
 - name: Link to current release
   file:
-    src: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/"
+    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/"
     dest: "{{ roundcube_path }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
@@ -148,6 +148,6 @@
 
 - name: Ensure the installer directory is deleted
   file:
-    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}/installer"
+    path: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/installer"
     state: absent
   when: roundcube_installer_delete | bool
