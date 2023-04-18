@@ -9,7 +9,8 @@ roundcube_user: roundcube
 roundcube_group: roundcube
 roundcube_user_shell: /bin/false
 roundcube_user_home: "/var/www/{{ roundcube_domain }}"
-roundcube_path: "{{ roundcube_user_home }}/www"
+roundcube_working_dir: "{{ roundcube_user_home }}"
+roundcube_path: "{{ roundcube_working_dir }}/www"
 roundcube_mysql_user: roundcube
 roundcube_mysql_password: "{{ roundcube_mysql_password_enc }}"
 roundcube_mysql_db: roundcubemail
@@ -40,7 +41,7 @@ roundcube_configs_extra:
 
 # enigma plugin settings
 roundcube_enigma_password_time: 5
-roundcube_enigma_home: "{{ roundcube_user_home }}/enigma/home"
+roundcube_enigma_home: "{{ roundcube_working_dir }}/enigma/home"
 roundcube_enigma_open_basedirs:
   - "/usr/bin/gpg"
   - "/usr/bin/gpg-agent"
