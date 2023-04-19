@@ -2,14 +2,14 @@
 - name: Ensure getmail plugin is latest
   git:
     repo: "{{ roundcube_getmail_repo }}"
-    dest: "{{ roundcube_path }}/plugins/getmail"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/getmail"
     version: master
   become_user: "{{ roundcube_user }}"
 
 - name: Ensure getmail config is latest
   template:
     src: plugins/getmail/config.inc.php.j2
-    dest: "{{ roundcube_path }}/plugins/getmail/config.inc.php"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/getmail/config.inc.php"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0640
@@ -17,13 +17,13 @@
 
 - name: Ensure cron permissions
   file:
-    path: "{{ roundcube_path }}/plugins/getmail/bin/cron.php"
+    path: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/getmail/bin/cron.php"
     mode: 0755
 
 - name: Call cron.php with cron
   cron:
     name: "Getmail"
     minute: "0"
-    job: "{{ roundcube_path }}/plugins/getmail/bin/cron.php"
+    job: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/getmail/bin/cron.php"
     user: root
     cron_file: roundcube
