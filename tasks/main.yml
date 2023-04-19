@@ -73,9 +73,9 @@
     copy: no
   when: (download.changed) or (not roundcube_directory.stat.exists)
 
-- name: Link to current release
+- name: Link to current release public_html directory
   file:
-    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/"
+    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/public_html"
     dest: "{{ roundcube_path }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
@@ -88,7 +88,7 @@
 - name: Ensure roundcube and plugin configs are latest
   template:
     src: "{{ item }}.j2"
-    dest: "{{ roundcube_path }}/{{ item }}"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/{{ item }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0640
@@ -100,7 +100,7 @@
     - skin
 
 - name: Run roundcube upgrade script
-  command: "{{ roundcube_path }}/bin/update.sh"
+  command: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/bin/update.sh"
   changed_when: true
   when:
    - link.changed
@@ -112,7 +112,7 @@
     minute: "10"
     hour: "6"
     user: "{{ roundcube_user }}"
-    job: "{{ roundcube_path }}/bin/cleandb.sh >/dev/null"
+    job: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/bin/cleandb.sh >/dev/null"
     cron_file: roundcube
 
 - name: Create Roundcube garbage collector cronjob
@@ -120,7 +120,7 @@
     name: "Roundcube garbage collector cronjob"
     minute: "30"
     user: "{{ roundcube_user }}"
-    job: "{{ roundcube_path }}/bin/gc.sh >/dev/null"
+    job: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/bin/gc.sh >/dev/null"
     cron_file: roundcube
 
 - name: Import skining tasks

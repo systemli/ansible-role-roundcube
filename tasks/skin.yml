@@ -3,14 +3,14 @@
 - name: Create custom skin dir for elastic skin
   ansible.posix.synchronize:
     src: "{{ roundcube_skin }}"
-    dest: "{{ roundcube_path }}/skins/"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/skins/"
     owner: false
     group: false
   when: roundcube_skin == 'elastic_systemli'
 
 - name: Ensure custom skin dir has correct permissions
   file:
-    path: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/"
+    path: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/skins/{{ roundcube_skin }}/"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     recurse: true
@@ -19,7 +19,7 @@
 - name: Copy custom logo to image directory
   copy:
     src: "roundcube/{{ roundcube_custom_logo }}"
-    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0644
@@ -28,7 +28,7 @@
 - name: Copy custom favicon
   copy:
     src: "roundcube/{{ roundcube_custom_favicon }}"
-    dest: "{{ roundcube_path }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_favicon }}"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_favicon }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0644

@@ -3,22 +3,22 @@
 - name: Get RCMCardDav release
   get_url:
     url: "https://github.com/mstilkerich/rcmcarddav/releases/download/v{{ roundcube_carddav_version }}/carddav-v{{ roundcube_carddav_version }}.tar.gz"
-    dest: "{{ roundcube_path }}/plugins"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins"
     mode: 0644
   register: carddav
   when: not ansible_check_mode
 
 - name: Unarchive RCMCardDav
   unarchive:
-    src: "{{ roundcube_path }}/plugins/carddav-v{{ roundcube_carddav_version }}.tar.gz"
-    dest: "{{ roundcube_path }}/plugins/"
+    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/carddav-v{{ roundcube_carddav_version }}.tar.gz"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/"
     copy: no
   when: carddav.changed
 
 - name: Ensure current RCMCardDav config
   template:
     src: "plugins/carddav/config.inc.php.j2"
-    dest: "{{ roundcube_path }}/plugins/carddav/config.inc.php"
+    dest: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/carddav/config.inc.php"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
     mode: 0640
