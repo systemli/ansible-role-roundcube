@@ -73,9 +73,21 @@
     copy: no
   when: (download.changed) or (not roundcube_directory.stat.exists)
 
-- name: Link to current release public_html directory
+- name: Link to current roundcube release
   file:
-    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/public_html"
+    src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}"
+    dest: "{{ roundcube_working_dir }}/current"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
+    state: link
+    follow: False
+    mode: 0755
+  register: link
+  notify: Restart apache
+
+- name: Link www to current roundcube release public_html directory
+  file:
+    src: "{{ roundcube_working_dir }}/current/public_html"
     dest: "{{ roundcube_path }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
