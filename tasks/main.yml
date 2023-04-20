@@ -50,7 +50,7 @@
 
 - name: Check if roundcube directory exists
   stat:
-    path: "{{ roundcube_user_home }}/roundcubemail-{{ roundcube_version }}"
+    path: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}"
   register: "roundcube_directory"
 
 - name: Get roundcube release
