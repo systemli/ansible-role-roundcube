@@ -3,14 +3,14 @@
   community.mysql.mysql_db:
     name: "{{ roundcube_mysql_db }}"
     state: import
-    target: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/SQL/mysql.initial.sql"
+    target: "{{ roundcube_working_dir }}/current/SQL/mysql.initial.sql"
     login_unix_socket: /run/mysqld/mysqld.sock
 
 - name: Update database for getmail
   community.mysql.mysql_db:
     name: "{{ roundcube_mysql_db }}"
     state: import
-    target: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}/plugins/getmail/drivers/database/SQL/mysql.initial.sql"
+    target: "{{ roundcube_working_dir }}/current/plugins/getmail/drivers/database/SQL/mysql.initial.sql"
     login_unix_socket: /run/mysqld/mysqld.sock
 
 - name: Restart apache
