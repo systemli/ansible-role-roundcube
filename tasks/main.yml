@@ -71,7 +71,7 @@
     group: "{{ roundcube_group }}"
     mode: 0750
     copy: no
-  when: (download.changed) or (not roundcube_directory.stat.exists)
+  when: (download.changed) or (not roundcube_directory.stat.exists) or ( roundcube_enable_installer | bool )
 
 - name: Link to current roundcube release
   file:
@@ -162,4 +162,4 @@
   file:
     path: "{{ roundcube_working_dir }}/current/installer"
     state: absent
-  when: roundcube_installer_delete | bool
+  when: ( not roundcube_enable_installer | bool )
