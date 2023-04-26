@@ -31,11 +31,19 @@ $config['db_dsnw'] = 'mysql://{{ roundcube_mysql_user }}:{{ roundcube_mysql_pass
 // See defaults.inc.php for the option description.
 $config['imap_host'] = '{{ roundcube_imap_host }}';
 
+// ----------------------------------
+// LOGGING/DEBUGGING
+// ----------------------------------
+
 // log driver:  'syslog', 'stdout' or 'file'.
 $config['log_driver'] = 'syslog';
 
 // Syslog ident string to use, if using the 'syslog' log driver.
 $config['syslog_id'] = 'roundcube';
+
+// ----------------------------------
+// SMTP
+// ----------------------------------
 
 // SMTP server host (and optional port number) for sending mails.
 // See defaults.inc.php for the option description.
@@ -48,6 +56,16 @@ $config['smtp_user'] = '{{ roundcube_smtp_user }}';
 // SMTP password (if required) if you use %p as the password Roundcube
 // will use the current user's password for login
 $config['smtp_pass'] = '{{ roundcube_smtp_pass }}';
+
+// ----------------------------------
+// SYSTEM
+// ----------------------------------
+
+{% if roundcube_enable_installer | bool %}
+// THIS OPTION WILL ALLOW THE INSTALLER TO RUN AND CAN EXPOSE SENSITIVE CONFIG DATA.
+// ONLY ENABLE IT IF YOU'RE REALLY SURE WHAT YOU'RE DOING!
+$config['enable_installer'] = {{ (roundcube_enable_installer) | bool | string | lower }};
+{% endif %}
 
 // don't allow these settings to be overridden by the user
 // (disable skin selection)
