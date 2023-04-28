@@ -81,7 +81,7 @@
     group: "{{ roundcube_group }}"
     state: link
     follow: False
-    mode: 0755
+    mode: 0777
   register: link
   notify: Restart apache
 
@@ -93,7 +93,7 @@
     group: "{{ roundcube_group }}"
     state: link
     follow: False
-    mode: 0755
+    mode: 0777
   register: link
   notify: Restart apache
 
