@@ -71,7 +71,9 @@
     group: "{{ roundcube_group }}"
     mode: 0750
     copy: no
-  when: (download.changed) or (not roundcube_directory.stat.exists) or ( roundcube_enable_installer | bool )
+  when: (download.changed) or
+    (not roundcube_directory.stat.exists) or
+    (roundcube_enable_installer | bool)
 
 - name: Link to current roundcube release
   file:
@@ -116,6 +118,7 @@
   changed_when: true
   when:
    - link.changed
+   - ( not roundcube_enable_installer | bool )
    - not testing|default(False)
 
 - name: Create Roundcube cleandb cronjob

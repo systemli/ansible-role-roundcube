@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/systemli/ansible-role-roundcube/workflows/Integration/badge.svg?branch=main)](https://github.com/systemli/ansible-role-roundcube/actions?query=workflow%3AIntegration)
 
 Install and configure Roundcube.
-This includes configuration of the Roundcube Getmail Plugin.
+This includes configuration of the Roundcube Getmail and Enigma Plugin.
 You can choose a custom skin `larry-custom` that has additional links to accout settings.
 
 ## Dependencies
@@ -14,6 +14,9 @@ Also, you need to configure the webserver to to deliver vhost `{{ roundcube_doma
 ## Role Variables
 
 see `defaults/main.yml`
+
+For the first run, please set `roundcube_enable_installer: true`.
+Afterwards, you can run the installer at `{{ roundcube_domain }}/installer`.
 
 ## Download
 
