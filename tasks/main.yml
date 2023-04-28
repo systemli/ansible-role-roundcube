@@ -1,28 +1,28 @@
 ---
 - name: Ensure mandatory variables are defined
-  assert:
+  ansible.builtin.assert:
     that:
       - roundcube_mysql_password is defined
       - roundcube_des_key is defined
 
 - name: Ensure crontab is installed
-  apt:
+  ansible.builtin.apt:
    pkg: "cron"
    state: present
 
 - name: Ensure roundcube group is present
-  group:
+  ansible.builtin.group:
     name: "{{ roundcube_group }}"
 
 - name: Ensure roundcube user is present
-  user:
+  ansible.builtin.user:
     name: "{{ roundcube_user }}"
     home: "{{ roundcube_user_home }}"
     shell: "{{ roundcube_user_shell }}"
     groups: "{{ roundcube_group }}"
 
 - name: Install Roundcube dependencies
-  apt:
+  ansible.builtin.apt:
     pkg: "{{ roundcube_dependencies }}"
     state: present
     install_recommends: False
@@ -45,16 +45,16 @@
   notify: Import database
 
 - name: Import mcrypt tasks
-  import_tasks: mcrypt.yml
+  ansible.builtin.import_tasks: mcrypt.yml
   when: ansible_distribution_major_version|int > 9
 
 - name: Check if roundcube directory exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}"
   register: "roundcube_directory"
 
 - name: Get roundcube release
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/roundcube/roundcubemail/releases/download/{{ roundcube_version }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
@@ -64,7 +64,7 @@
   register: download
 
 - name: Unarchive roundcube
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}-complete.tar.gz"
     dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
@@ -76,7 +76,7 @@
     (roundcube_enable_installer | bool)
 
 - name: Link to current roundcube release
-  file:
+  ansible.builtin.file:
     src: "{{ roundcube_working_dir }}/roundcubemail-{{ roundcube_version }}"
     dest: "{{ roundcube_working_dir }}/current"
     owner: "{{ roundcube_user }}"
@@ -88,7 +88,7 @@
   notify: Restart apache
 
 - name: Link www to current roundcube release public_html directory
-  file:
+  ansible.builtin.file:
     src: "{{ roundcube_working_dir }}/current/public_html"
     dest: "{{ roundcube_path }}"
     owner: "{{ roundcube_user }}"
@@ -100,7 +100,7 @@
   notify: Restart apache
 
 - name: Ensure roundcube and plugin configs are latest
-  template:
+  ansible.builtin.template:
     src: "{{ item }}.j2"
     dest: "{{ roundcube_working_dir }}/current/{{ item }}"
     owner: "{{ roundcube_user }}"
@@ -114,7 +114,7 @@
     - skin
 
 - name: Run roundcube upgrade script
-  command: "{{ roundcube_working_dir }}/current/bin/update.sh"
+  ansible.builtin.command: "{{ roundcube_working_dir }}/current/bin/update.sh"
   changed_when: true
   when:
    - link.changed
@@ -122,7 +122,7 @@
    - not testing|default(False)
 
 - name: Create Roundcube cleandb cronjob
-  cron:
+  ansible.builtin.cron:
     name: "Roundcube cleandb cronjob"
     minute: "10"
     hour: "6"
@@ -131,7 +131,7 @@
     cron_file: roundcube
 
 - name: Create Roundcube garbage collector cronjob
-  cron:
+  ansible.builtin.cron:
     name: "Roundcube garbage collector cronjob"
     minute: "30"
     user: "{{ roundcube_user }}"
@@ -139,30 +139,30 @@
     cron_file: roundcube
 
 - name: Import skining tasks
-  import_tasks: skin.yml
+  ansible.builtin.import_tasks: skin.yml
   tags:
     - skin
 
 - name: Import carddav plugin tasks
-  import_tasks: carddav.yml
+  ansible.builtin.import_tasks: carddav.yml
   when: "'carddav' in roundcube_plugins"
   tags:
     - carddav
 
 - name: Import enigma plugin tasks
-  import_tasks: enigma.yml
+  ansible.builtin.import_tasks: enigma.yml
   when: "'enigma' in roundcube_plugins"
   tags:
     - enigma
 
 - name: Import getmail plugin tasks
-  import_tasks: getmail.yml
+  ansible.builtin.import_tasks: getmail.yml
   when: "'getmail' in roundcube_plugins"
   tags:
     - getmail
 
 - name: Ensure the installer directory is deleted
-  file:
+  ansible.builtin.file:
     path: "{{ roundcube_working_dir }}/current/installer"
     state: absent
   when: ( not roundcube_enable_installer | bool )

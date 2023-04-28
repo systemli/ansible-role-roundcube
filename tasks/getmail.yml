@@ -1,13 +1,13 @@
 ---
 - name: Ensure getmail plugin is latest
-  git:
+  ansible.builtin.git:
     repo: "{{ roundcube_getmail_repo }}"
     dest: "{{ roundcube_working_dir }}/current/plugins/getmail"
     version: master
   become_user: "{{ roundcube_user }}"
 
 - name: Ensure getmail config is latest
-  template:
+  ansible.builtin.template:
     src: plugins/getmail/config.inc.php.j2
     dest: "{{ roundcube_working_dir }}/current/plugins/getmail/config.inc.php"
     owner: "{{ roundcube_user }}"
@@ -16,12 +16,12 @@
   notify: Update database for getmail
 
 - name: Ensure cron permissions
-  file:
+  ansible.builtin.file:
     path: "{{ roundcube_working_dir }}/current/plugins/getmail/bin/cron.php"
     mode: 0755
 
 - name: Call cron.php with cron
-  cron:
+  ansible.builtin.cron:
     name: "Getmail"
     minute: "0"
     job: "{{ roundcube_working_dir }}/current/plugins/getmail/bin/cron.php"

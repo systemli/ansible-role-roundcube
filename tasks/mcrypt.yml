@@ -1,12 +1,12 @@
 ---
 - name: Ensure mcrypt dir is present
-  file:
+  ansible.builtin.file:
     path: /usr/lib/php/20180731/
     state: directory
     mode: 0755
 
 - name: Install custom mcrypt
-  copy:
+  ansible.builtin.copy:
     src: mcrypt.so
     dest: /usr/lib/php/20180731/mcrypt.so
     owner: root

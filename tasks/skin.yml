@@ -9,7 +9,7 @@
   when: roundcube_skin == 'elastic_systemli'
 
 - name: Ensure custom skin dir has correct permissions
-  file:
+  ansible.builtin.file:
     path: "{{ roundcube_working_dir }}/current/skins/{{ roundcube_skin }}/"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
@@ -17,7 +17,7 @@
   when: roundcube_skin == 'elastic_systemli'
 
 - name: Copy custom logo to image directory
-  copy:
+  ansible.builtin.copy:
     src: "roundcube/{{ roundcube_custom_logo }}"
     dest: "{{ roundcube_working_dir }}/current/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_logo }}"
     owner: "{{ roundcube_user }}"
@@ -26,7 +26,7 @@
   when: roundcube_custom_logo is defined
 
 - name: Copy custom favicon
-  copy:
+  ansible.builtin.copy:
     src: "roundcube/{{ roundcube_custom_favicon }}"
     dest: "{{ roundcube_working_dir }}/current/skins/{{ roundcube_skin }}/images/{{ roundcube_custom_favicon }}"
     owner: "{{ roundcube_user }}"

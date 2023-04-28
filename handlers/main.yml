@@ -14,7 +14,7 @@
     login_unix_socket: /run/mysqld/mysqld.sock
 
 - name: Restart apache
-  service:
+  ansible.builtin.service:
     name: apache2
     state: restarted
   when: roundcube_apache | bool
