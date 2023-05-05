@@ -19,7 +19,7 @@
     name: "{{ roundcube_user }}"
     home: "{{ roundcube_user_home }}"
     shell: "{{ roundcube_user_shell }}"
-    groups: "{{ roundcube_group }}"
+    group: "{{ roundcube_group }}"
 
 - name: Install Roundcube dependencies
   ansible.builtin.apt:
