@@ -1,5 +1,11 @@
 ---
-
+roles:
+  - name: geerlingguy.apache
+    version: 3.3.0
+  - name: geerlingguy.php
+    version: 4.8.0
+  - name: systemli.mariadb
+    version: 1.0.0
 collections:
   - ansible.posix
   - community.mysql
