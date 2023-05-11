@@ -1,0 +1,20 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install required Servcies
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop:
+        - apache2
+        - mariadb-server
+
+    - name: Start required Services
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - apache2
+        - mariadb
