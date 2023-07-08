@@ -13,6 +13,6 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - buster
+        - bookworm
         - bullseye
 dependencies: []
