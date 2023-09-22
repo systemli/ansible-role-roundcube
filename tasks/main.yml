@@ -1,4 +1,7 @@
 ---
+- name: Preflight checks
+  ansible.builtin.import_tasks: preflight.yml
+
 - name: Ensure mandatory variables are defined
   ansible.builtin.assert:
     that:
@@ -7,8 +10,8 @@
 
 - name: Ensure crontab is installed
   ansible.builtin.apt:
-   pkg: "cron"
-   state: present
+    pkg: "cron"
+    state: present
 
 - name: Ensure roundcube group is present
   ansible.builtin.group:
@@ -59,7 +62,7 @@
     dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
-    mode: '0440'
+    mode: "0440"
   when: not ansible_check_mode
   register: download
 
@@ -117,9 +120,9 @@
   ansible.builtin.command: "{{ roundcube_working_dir }}/current/bin/update.sh"
   changed_when: true
   when:
-   - link.changed
-   - ( not roundcube_enable_installer | bool )
-   - not testing|default(False)
+    - link.changed
+    - ( not roundcube_enable_installer | bool )
+    - not testing|default(False)
 
 - name: Create Roundcube cleandb cronjob
   ansible.builtin.cron:

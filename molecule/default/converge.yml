@@ -6,6 +6,6 @@
       ansible.builtin.include_role:
         name: "ansible-role-roundcube"
       vars:
-        roundcube_mysql_password_enc: "password"
+        roundcube_mysql_password: "password"
         roundcube_des_key: "SuperS3cr3tD3SKeys"
-        testing: True
+        testing: true

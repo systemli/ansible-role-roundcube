@@ -12,13 +12,13 @@ roundcube_user_home: "/var/www/{{ roundcube_domain }}"
 roundcube_working_dir: "{{ roundcube_user_home }}"
 roundcube_path: "{{ roundcube_working_dir }}/www"
 roundcube_mysql_user: roundcube
-roundcube_mysql_password: "{{ roundcube_mysql_password_enc }}"
+roundcube_mysql_password: ""
 roundcube_mysql_db: roundcubemail
-roundcube_imap_host: 'ssl://{{ roundcube_domain }}:993'
+roundcube_imap_host: "ssl://{{ roundcube_domain }}:993"
 roundcube_skin: elastic
-roundcube_smtp_host: 'ssl://{{ roundcube_domain }}:465'
-roundcube_smtp_user: '%u'
-roundcube_smtp_pass: '%p'
+roundcube_smtp_host: "ssl://{{ roundcube_domain }}:465"
+roundcube_smtp_user: "%u"
+roundcube_smtp_pass: "%p"
 roundcube_identities_level: 1
 roundcube_date_format: d.m.Y
 roundcube_cipher_method: AES-256-CBC
@@ -26,6 +26,7 @@ roundcube_password_charset: UTF-8
 roundcube_sendmail_delay: 4
 roundcube_max_recipients: 250
 roundcube_draft_autosave: 60
+roundcube_des_key: ""
 
 roundcube_plugins:
   - archive
@@ -53,7 +54,7 @@ roundcube_dependencies:
   - php-intl
   - libmcrypt-dev
   - php-mysql
-  - php-curl  # rcmcarddav
+  - php-curl # rcmcarddav
   - python3-mysqldb
   - git
 
