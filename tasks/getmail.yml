@@ -5,6 +5,7 @@
     dest: "{{ roundcube_working_dir }}/current/plugins/getmail"
     version: master
   become_user: "{{ roundcube_user }}"
+  become: true
 
 - name: Ensure getmail config is latest
   ansible.builtin.template:
