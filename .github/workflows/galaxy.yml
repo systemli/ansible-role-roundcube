@@ -10,15 +10,8 @@ on:
 jobs:
   galaxy:
     name: Ansible Galaxy
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout git repo'
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - name: 'Release on galaxy'
-        uses: ansible-actions/ansible-galaxy-action@v1.1.1
-        with:
-          galaxy_api_key: ${{ secrets.galaxy_api_key }}
+    uses: systemli/github-ansible-workflow/.github/workflows/ansible-galaxy-workflow.yaml@main
+    with:
+      git-branch: ${{ github.ref_name }}
+    secrets:
+      galaxy-token: ${{ secrets.galaxy_api_key }}
