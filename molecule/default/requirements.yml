@@ -1,5 +1,0 @@
----
-roles:
-  - name: geerlingguy.apache
-  - name: geerlingguy.php
-  - name: systemli.mariadb
