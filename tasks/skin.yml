@@ -2,10 +2,13 @@
 
 - name: Create custom skin dir for elastic skin
   ansible.posix.synchronize:
-    src: "{{ roundcube_skin }}"
+    archive: false
+    checksum: true
     dest: "{{ roundcube_working_dir }}/current/skins/"
-    owner: false
     group: false
+    owner: false
+    recursive: true
+    src: "{{ roundcube_skin }}"
   when: roundcube_skin == 'elastic_systemli'
 
 - name: Ensure custom skin dir has correct permissions
