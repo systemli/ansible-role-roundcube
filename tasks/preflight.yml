@@ -6,3 +6,6 @@
       - roundcube_des_key is defined and roundcube_des_key != ""
     fail_msg: "roundcube_mysql_password and roundcube_des_key must be set"
     success_msg: "roundcube_mysql_password and roundcube_des_key are set"
+
+- name: Populate service facts
+  ansible.builtin.service_facts:
