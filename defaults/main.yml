@@ -63,6 +63,3 @@ roundcube_carddav_version: 4.4.2
 
 # Installer
 roundcube_enable_installer: false
-
-# Apache
-roundcube_apache: true

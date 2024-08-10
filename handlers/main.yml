@@ -17,7 +17,7 @@
   ansible.builtin.service:
     name: apache2
     state: restarted
-  when: roundcube_apache | bool
+  when: ansible_facts.services is search("apache2.service")
   notify:
     - Restart php-fpm
 
