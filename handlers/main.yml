@@ -17,12 +17,12 @@
   ansible.builtin.service:
     name: apache2
     state: restarted
+  listen: Restart webserver
   when: ansible_facts.services is search("apache2.service")
-  notify:
-    - Restart php-fpm
 
 - name: Restart php-fpm
   ansible.builtin.service:
     name: "{{ ansible_facts.services | select('search', '-fpm.service') | first }}"
     state: restarted
+  listen: Restart webserver
   when: ansible_facts.services is search("-fpm.service")
