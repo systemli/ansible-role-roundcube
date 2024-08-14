@@ -88,7 +88,7 @@
     follow: False
     mode: 0777
   register: link
-  notify: Restart apache
+  notify: Restart webserver
 
 - name: Link www to current roundcube release public_html directory
   ansible.builtin.file:
@@ -100,7 +100,7 @@
     follow: False
     mode: 0777
   register: link
-  notify: Restart apache
+  notify: Restart webserver
 
 - name: Ensure roundcube and plugin configs are latest
   ansible.builtin.template:
