@@ -36,6 +36,10 @@ roundcube_plugins:
   - managesieve
   - zipdownload
 
+# extra plugins to be copied from local sources
+# roundcube_plugins_extra:
+#   -  example_plugin
+
 # list of additional configs, e.g. for plugins
 roundcube_configs_extra:
   - plugins/enigma/config.inc.php

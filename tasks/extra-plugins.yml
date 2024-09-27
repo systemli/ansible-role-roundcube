@@ -1,0 +1,10 @@
+---
+
+- name: "Copy plugin directory of {{ item }}"
+  ansible.builtin.copy:
+    src: "roundcube/extra-plugins/{{ item }}"
+    dest: "{{ roundcube_working_dir }}/current/plugins/"
+    owner: "{{ roundcube_user }}"
+    group: "{{ roundcube_group }}"
+    mode: 0644
+    directory_mode: 0755

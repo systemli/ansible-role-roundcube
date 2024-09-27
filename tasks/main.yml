@@ -164,6 +164,13 @@
   tags:
     - getmail
 
+- name: Import extra plugin tasks
+  ansible.builtin.include_tasks: extra-plugins.yml
+  when: "roundcube_plugins_extra is defined"
+  loop: "{{ roundcube_plugins_extra }}"
+  tags:
+    - extra-plugins
+
 - name: Ensure the installer directory is deleted
   ansible.builtin.file:
     path: "{{ roundcube_working_dir }}/current/installer"
