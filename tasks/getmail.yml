@@ -13,13 +13,13 @@
     dest: "{{ roundcube_working_dir }}/current/plugins/getmail/config.inc.php"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
-    mode: 0640
+    mode: "0640"
   notify: Update database for getmail
 
 - name: Ensure cron permissions
   ansible.builtin.file:
     path: "{{ roundcube_working_dir }}/current/plugins/getmail/bin/cron.php"
-    mode: 0755
+    mode: "0755"
 
 - name: Call cron.php with cron
   ansible.builtin.cron:

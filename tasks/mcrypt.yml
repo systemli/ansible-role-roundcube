@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: /usr/lib/php/20180731/
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Install custom mcrypt
   ansible.builtin.copy:
@@ -11,4 +11,4 @@
     dest: /usr/lib/php/20180731/mcrypt.so
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
