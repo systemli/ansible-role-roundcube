@@ -6,4 +6,4 @@
     state: directory
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
-    mode: 0700
+    mode: "0700"

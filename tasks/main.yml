@@ -72,7 +72,7 @@
     dest: "{{ roundcube_working_dir }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
-    mode: 0750
+    mode: "0750"
     copy: no
   when: (download.changed) or
     (not roundcube_directory.stat.exists) or
@@ -86,7 +86,7 @@
     group: "{{ roundcube_group }}"
     state: link
     follow: False
-    mode: 0777
+    mode: "0777"
   register: link
   notify: Restart webserver
 
@@ -98,7 +98,7 @@
     group: "{{ roundcube_group }}"
     state: link
     follow: False
-    mode: 0777
+    mode: "0777"
   register: link
   notify: Restart webserver
 
@@ -108,7 +108,7 @@
     dest: "{{ roundcube_working_dir }}/current/{{ item }}"
     owner: "{{ roundcube_user }}"
     group: "{{ roundcube_group }}"
-    mode: 0640
+    mode: "0640"
   with_items:
     - config/config.inc.php
     - "{{ roundcube_configs_extra | default() }}"
