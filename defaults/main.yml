@@ -58,7 +58,7 @@ roundcube_dependencies:
   - php-intl
   - libmcrypt-dev
   - php-mysql
-  - php-curl # rcmcarddav
+  - php-curl  # rcmcarddav
   - python3-mysqldb
   - git
 
