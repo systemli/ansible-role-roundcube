@@ -43,6 +43,7 @@ roundcube_plugins:
 # list of additional configs, e.g. for plugins
 roundcube_configs_extra:
   - plugins/enigma/config.inc.php
+  - plugins/managesieve/config.inc.php
 
 # enigma plugin settings
 roundcube_enigma_password_time: 5
@@ -53,6 +54,10 @@ roundcube_enigma_open_basedirs:
   - "/usr/bin/gpgconf"
   - "/usr/local/bin/gpgconf"
   - "{{ roundcube_enigma_home }}"
+
+# managesieve plugin settings
+roundcube_managesieve_default: /etc/dovecot/sieve/global
+roundcube_managesieve_script_name: roundcube
 
 roundcube_dependencies:
   - php-intl
