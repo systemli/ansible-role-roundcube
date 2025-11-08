@@ -158,12 +158,6 @@
   tags:
     - enigma
 
-- name: Import getmail plugin tasks
-  ansible.builtin.import_tasks: getmail.yml
-  when: "'getmail' in roundcube_plugins"
-  tags:
-    - getmail
-
 - name: Import extra plugin tasks
   ansible.builtin.include_tasks: extra-plugins.yml
   when: "roundcube_plugins_extra is defined"
