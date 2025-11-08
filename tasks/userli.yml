@@ -3,7 +3,7 @@
   ansible.builtin.git:
     repo: "https://github.com/systemli/roundcube-userli-plugin"
     dest: "{{ roundcube_working_dir }}/current/plugins/userli"
-    version: master
+    version: main
   become_user: "{{ roundcube_user }}"
   become: true
 
