@@ -158,6 +158,12 @@
   tags:
     - enigma
 
+- name: Import userli plugin tasks
+  ansible.builtin.import_tasks: userli.yml
+  when: "'userli' in roundcube_plugins"
+  tags:
+    - userli
+
 - name: Import extra plugin tasks
   ansible.builtin.include_tasks: extra-plugins.yml
   when: "roundcube_plugins_extra is defined"
