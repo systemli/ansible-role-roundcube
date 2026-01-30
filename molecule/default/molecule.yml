@@ -18,6 +18,21 @@ provisioner:
   ansible_args:
     - --diff
   become: true
+  # Test installation of userli plugin
+  inventory:
+    group_vars:
+      all:
+        roundcube_plugins:
+          - archive
+          - carddav
+          - enigma
+          - markasjunk
+          - managesieve
+          - zipdownload
+          - userli
+        roundcube_userli_url: "https://userli.example/api"
+        roundcube_userli_token: "test-token"
+        roundcube_userli_ssl_verify: false
 
 dependency:
   name: galaxy
