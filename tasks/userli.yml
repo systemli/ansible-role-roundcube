@@ -6,6 +6,10 @@
       Accept: "application/vnd.github+json"
       X-GitHub-Api-Version: "2022-11-28"
     body_format: json
+  # ansible.builtin.uri doesn't support check mode; accordingly, force
+  # execution at any time, regardless of whether Ansible is executed normally
+  # or in check mode.
+  check_mode: false
   register: latest_release
 
 - name: Ensure userli plugin is latest
@@ -15,7 +19,7 @@
     version: "{{ latest_release.json.tag_name }}"
   become_user: "{{ roundcube_user }}"
   become: true
-  check_mode: no
+  when: latest_release is defined and 'tag_name' in latest_release
 
 - name: Ensure userli plugin config is latest
   ansible.builtin.template:
