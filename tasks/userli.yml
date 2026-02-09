@@ -19,7 +19,7 @@
     version: "{{ latest_release.json.tag_name }}"
   become_user: "{{ roundcube_user }}"
   become: true
-  when: latest_release is defined and 'tag_name' in latest_release
+  when: latest_release is defined and latest_release.json is defined and 'tag_name' in latest_release.json
 
 - name: Ensure userli plugin config is latest
   ansible.builtin.template:

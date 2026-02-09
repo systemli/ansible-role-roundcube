@@ -6,6 +6,17 @@
       ansible.builtin.include_role:
         name: "ansible-role-roundcube"
       vars:
-        roundcube_mysql_password: "password"
         roundcube_des_key: "SuperS3cr3tD3SKeys"
+        roundcube_mysql_password: "password"
+        roundcube_plugins:
+          - archive
+          - carddav
+          - enigma
+          - markasjunk
+          - managesieve
+          - zipdownload
+          - userli
+        roundcube_userli_ssl_verify: false
+        roundcube_userli_token: "test-token"
+        roundcube_userli_url: "https://userli.example/api"
         testing: true
