@@ -57,6 +57,7 @@ roundcube_enigma_open_basedirs:
 
 # managesieve plugin settings
 roundcube_managesieve_default: /etc/dovecot/sieve/global
+roundcube_managesieve_host: localhost
 roundcube_managesieve_script_name: roundcube
 
 roundcube_dependencies:
